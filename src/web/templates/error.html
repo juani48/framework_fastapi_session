@@ -1,0 +1,15 @@
+
+{% extends "layout.html" %}
+
+{% block title %}Error - Mi Sitio{% endblock %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <p>{{ message }}</p>
+    {% if status_code == 403 %}
+        <a href="{{ url_for('render_login') }}">Iniciar sesión</a>
+        <br>
+    {% endif %}
+    
+    <a href="{{ url_for('render_index') }}">Volver al inicio</a>
+{% endblock %}

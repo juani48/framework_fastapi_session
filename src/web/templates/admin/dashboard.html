@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}Panel de Administración - Mi Sitio{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Bienvenido al Panel de Administración</h1>
+    <p>Gestiona tu sitio aquí</p>
+    <div id="users-list">
+
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/admin/user-list')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const usersList = document.getElementById('users-list');
+                console.log(data);
+                if (data.users.length === 0) {
+                    usersList.innerHTML = '<p>No hay usuarios registrados.</p>';
+                } else {
+                    const ul = document.createElement('ul');
+                    data.users.forEach(user => {
+                        const li = document.createElement('li');
+                        li.textContent = `${user.name} ${user.last_name} - ${user.email}`;
+                        ul.appendChild(li);
+                    });
+                    usersList.appendChild(ul);
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar los usuarios:', error);
+                const usersList = document.getElementById('users-list');
+                usersList.innerHTML = '<p>Error al cargar los usuarios.</p>';
+            });
+    });    
+</script>
+{% endblock %}

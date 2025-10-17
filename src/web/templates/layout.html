@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Mi Sitio {% endblock %}</title>
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('render_index') }}">Inicio</a></li>
+                {% if not session %}
+                <li><a href="{{ url_for('render_signin') }}">Registro</a></li>
+                <li><a href="{{ url_for('render_login') }}">Iniciar sesión</a></li>
+                {% else %}
+                <li><a id="logout" href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+                {% endif %}
+                {% if session and session.role == 'ADMIN' %}
+                <li><a href="{{ url_for('render_admin_dashboard') }}">Panel de Administración</a></li>
+                <li><a href="{{ url_for('render_admin_form_users') }}">Agregar Usuarios</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mi Sitio Web</p>
+    </footer>
+</body>
+<script>
+    document.getElementById("logout")?.addEventListener("click", function (event) {
+        if (confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+            event.preventDefault();
+            fetch("{{ url_for('logout') }}", {
+                method: "PUT",
+                credentials: "same-origin"
+            }).then(response => {
+                if (response.ok) {
+                    alert("Sesión cerrada correctamente.");
+                    window.location.href = "{{ url_for('render_index') }}";
+                } else {
+                    alert("Error al cerrar sesión.");
+                }
+            });
+        } else {
+            event.preventDefault();
+            return;
+        }
+    });
+</script>
+{% block scripts %}
+
+{% endblock %}
+
+</html>
