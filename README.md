@@ -1,30 +1,3 @@
-Nutricion Web - development notes
-
-Redis for sessions
-------------------
-
-This project uses Redis as the session store. Set the `REDIS_URL` environment variable (for example in a `.env` file) before running the app. Example:
-
-	REDIS_URL=redis://localhost:6379/0
-
-To run Redis locally (Linux), you can install and start it with your package manager, or use Docker:
-
-	# using apt (Debian/Ubuntu)
-	sudo apt update && sudo apt install redis-server
-	sudo systemctl enable --now redis-server
-
-	# or using docker
-	docker run -p 6379:6379 -d --name redis-local redis:7-alpine
-
-No changes to `pyproject.toml` are required if you already have `redis[async]` in the dependencies (it is included).
-
-Usage in this project
----------------------
-
-The Redis backend in `src/web/config.py` reads `REDIS_URL` and stores session objects under keys `session:<uuid>` as JSON.
-
-----
-
 # FastAPI Session Framework
 
 Un framework de autenticación y gestión de sesiones con FastAPI, Redis, PostgreSQL y control de acceso basado en roles.
