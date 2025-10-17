@@ -1,5 +1,5 @@
 [project]
-name = "nutricion-web"
+name = "framework_fastapi_session"
 version = "0.1.0"
 description = ""
 authors = [

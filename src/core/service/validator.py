@@ -1,5 +1,5 @@
 def validate_signin_json(data: dict):
-    for field in ["name", "email", "password", "confirm_password", "last_name", "birthdate", "height", "weight"]:
+    for field in ["name", "email", "password", "confirm_password", "last_name"]:
         if field not in data or not isinstance(data[field], str) or len(data[field]) == 0:
             raise ValueError(f"Falta el campo obligatorio: {field}.")
         if not isinstance(data[field], str) or len(data[field]) == 0:

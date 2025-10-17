@@ -13,14 +13,11 @@ class UserRepository:
             raise ValueError("Ya existe un usuario con ese correo electrónico.")
 
         hashed = hash_string(user_data["password"])
-        print("---------USER----------\nUser data to create:", user_data, "\n-------------------")
+
         new_user = UserModel(
             name=user_data.get("name"), 
             last_name=user_data.get("last_name"), 
             email=user_data.get("email"), 
-            birthdate=user_data.get("birthdate"),
-            height=user_data.get("height"),
-            weight=user_data.get("weight"),
             role_id=RoleEnum.USER.value,
             hashed_password=hashed
         )

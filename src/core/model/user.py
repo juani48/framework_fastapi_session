@@ -17,8 +17,4 @@ class UserModel(SQLModel, table=True):
     role_id: Optional[int] = Field(default=None, foreign_key="rolemodel.id")
     # Relationship to access the RoleModel instance directly
     role: "RoleModel" = Relationship(back_populates="users")
-
-    birthdate: date
-    height: float  # in cm
-    weight: float  # in kg
     

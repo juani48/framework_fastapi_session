@@ -20,9 +20,6 @@ class AdminRepository:
                 name=user_data["name"],
                 last_name=user_data["last_name"],
                 email=user_data["email"],
-                birthdate=datetime.strptime(user_data["birthdate"], "%d/%m/%Y").date(),
-                height=float(user_data["height"]),
-                weight=float(user_data["weight"]),
                 role_id=user_data["role_id"],
                 hashed_password=hashed
             )
@@ -65,19 +62,13 @@ class AdminRepository:
             raise ValueError("Ya existe un usuario con ese correo electrónico.")
         
         password = generate_password(length=len(user_data.get("email")))
-        print("Generated password for new user:", password)
-        hashed = hash_string(password)
-        birthdate = datetime.date.fromisoformat(user_data["birthdate"])
 
-        print("---------USER----------\nUser data to create:", user_data, "\n-------------------")
+        hashed = hash_string(password)
 
         new_user = UserModel(
             name=user_data.get("name"),
             last_name=user_data.get("last_name"),
             email=user_data.get("email"),
-            birthdate=birthdate,
-            height=user_data.get("height"),
-            weight=user_data.get("weight"),
             role_id=int(user_data.get("role")),
             hashed_password=hashed,
         )
